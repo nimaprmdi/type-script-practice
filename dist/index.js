@@ -1,9 +1,7 @@
 "use strict";
-let speed = -2;
-let ride = {
-    // Nullish Operator
-    // (??) will say if value was true put there (speed) otherwise put 30
-    speed: speed !== null && speed !== void 0 ? speed : 30,
-};
-console.log(ride); // if null give 30 if (0) give (0) if (other value) give (other value)
+let address = document.getElementById("address");
+let phone = document.getElementById("phone"); // We say "Hey TypeScript" we know it is a input value element
+let phone_2 = document.getElementById("phone"); // Other Convension of top code
+console.log(address); // Doesnt Have (VALUE) property
+console.log(phone.value); // Have (VALUE) property { If element as undefined program will crash }
 //# sourceMappingURL=index.js.map

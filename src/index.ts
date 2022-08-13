@@ -1,9 +1,6 @@
-let speed: number | null = -2;
+let address = document.getElementById("address");
+let phone = document.getElementById("phone") as HTMLInputElement; // We say "Hey TypeScript" we know it is a input value element
+let phone_2 = <HTMLInputElement>document.getElementById("phone"); // Other Convension of top code
 
-let ride = {
-    // Nullish Operator
-    // (??) will say if value was true put there (speed) otherwise put 30
-    speed: speed ?? 30,
-};
-
-console.log(ride); // if null give 30 if (0) give (0) if (other value) give (other value)
+console.log(address); // Doesnt Have (VALUE) property
+console.log(phone.value); // Have (VALUE) property { If element as undefined program will crash }
