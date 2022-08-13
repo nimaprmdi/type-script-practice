@@ -1,6 +1,13 @@
-let address = document.getElementById("address");
-let phone = document.getElementById("phone") as HTMLInputElement; // We say "Hey TypeScript" we know it is a input value element
-let phone_2 = <HTMLInputElement>document.getElementById("phone"); // Other Convension of top code
+// Using (unknown) is prefred instead of any (Give us better type checking)
+function render(document: any) {
+    // This is equal to if(typeof document === 'string').
+    // But with instance of we can say custom objet
+    if (document instanceof WordDocument) { // WordDocument is (type) for example
+        document.toUpperCase();
+    }
 
-console.log(address); // Doesnt Have (VALUE) property
-console.log(phone.value); // Have (VALUE) property { If element as undefined program will crash }
+    // type of just work for `string` , `boolean` , `number`
+    if (typeof document === "string") {
+        document.toUpperCase();
+    }
+}
