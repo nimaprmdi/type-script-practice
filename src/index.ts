@@ -1,6 +1,15 @@
-// Union Type Checking
+// Intersection types
+type Draggable = {
+    darg: () => void;
+};
 
-function kgToLbs(weight: number | string): number {
-    if (typeof weight === "number") return weight * 2.2; // Intellisense  detect that is number
-    else return parseInt(weight) * 2.2; // Intellisense detect that is string
-}
+type Resizable = {
+    resize: () => void;
+};
+
+type UiWidgets = Draggable & Resizable;
+
+let userWidget: UiWidgets = {
+    darg: () => {},
+    resize: () => {},
+};

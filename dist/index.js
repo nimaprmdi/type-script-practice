@@ -1,9 +1,6 @@
 "use strict";
-// Union Type Checking
-function kgToLbs(weight) {
-    if (typeof weight === "number")
-        return weight * 2.2;
-    else
-        return parseInt(weight) * 2.2;
-}
+let userWidget = {
+    darg: () => { },
+    resize: () => { },
+};
 //# sourceMappingURL=index.js.map
