@@ -1,7 +1,19 @@
 "use strict";
-let address = document.getElementById("address");
-let phone = document.getElementById("phone"); // We say "Hey TypeScript" we know it is a input value element
-let phone_2 = document.getElementById("phone"); // Other Convension of top code
-console.log(address); // Doesnt Have (VALUE) property
-console.log(phone.value); // Have (VALUE) property { If element as undefined program will crash }
+class Account {
+    // Initialing the properties
+    constructor(id, owner, balance) {
+        this.id = id;
+        this.owner = owner;
+        this.balance = balance;
+    }
+    // A method inside the class
+    deposit(amount) {
+        if (amount <= 0)
+            throw new Error("Invalid Amount");
+        this.balance += amount;
+    }
+}
+let account = new Account(1, "Nima", 50);
+account.deposit(50);
+console.log(account.balance);
 //# sourceMappingURL=index.js.map
