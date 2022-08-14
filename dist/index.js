@@ -11,6 +11,11 @@ class Person {
         console.log("Walk");
     }
 }
+class Principle extends Person {
+    get fullName() {
+        return "Principle" + super.fullName;
+    }
+}
 class Teacher extends Person {
     // Overriding the fullName from The parnt Class using (override) keyword
     get fullName() {
@@ -23,8 +28,14 @@ class Student extends Person {
         this.studentId = studentId;
     }
 }
-let student = new Student(1, "Nima", "Prmi");
-let teacher = new Teacher("Mosh", "Hamedani");
-console.log("student", student.fullName);
-console.log("teacher", teacher.fullName);
+printNames([
+    new Student(1, "Nima", "Prmi"),
+    new Teacher("Mosh", "Hamedani"),
+    new Principle("Mary", "Weather"),
+]);
+// It is polymorphism
+function printNames(people) {
+    for (let person of people)
+        console.log(person.fullName);
+}
 //# sourceMappingURL=index.js.map
