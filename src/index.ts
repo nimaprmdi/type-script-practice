@@ -3,21 +3,11 @@ class Account {
 
     constructor(public readonly id: number, public owner: string, private _balance: number) {}
 
-    deposit(amount: number): void {
-        if (amount <= 0) throw new Error("Invalid Amount");
-
-        this._balance += amount;
-    }
-
-    private calculateTax(): number {
-        return this._balance * 0.2;
-    }
-
-    get balance(): number {
+    get balance(): number { // Will get the private property 
         return this._balance;
     }
 
-    set balance(value: number) {
+    set balance(value: number) { // Will set the private property 
         if (value <= 0) throw new Error("Invalid Value");
 
         this._balance = value;
@@ -25,6 +15,6 @@ class Account {
 }
 
 let account = new Account(1, "Nima", 50);
-account.deposit(50);
 
-console.log(account.balance);
+console.log(account.balance); // we can get the property value here
+account.balance = 1; // we can access and change its property value here
