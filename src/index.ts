@@ -1,20 +1,10 @@
-class Account {
-    nickname?: string;
-
-    constructor(public readonly id: number, public owner: string, private _balance: number) {}
-
-    get balance(): number { // Will get the private property 
-        return this._balance;
-    }
-
-    set balance(value: number) { // Will set the private property 
-        if (value <= 0) throw new Error("Invalid Value");
-
-        this._balance = value;
-    }
+class SeatsAssignments {
+    [seatNumber: string]: string;
 }
 
-let account = new Account(1, "Nima", 50);
+let seats = new SeatsAssignments();
 
-console.log(account.balance); // we can get the property value here
-account.balance = 1; // we can access and change its property value here
+seats.a1 = "Nima";
+
+// Using the bracket notation and can pass variable
+seats["a2"] = "Mosh";
