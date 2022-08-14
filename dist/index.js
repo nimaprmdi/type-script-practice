@@ -1,19 +1,30 @@
 "use strict";
-class Ride {
-    start() {
-        Ride._activeRides++;
+class Person {
+    constructor(firstname, lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
-    stop() {
-        Ride._activeRides--;
+    get fullName() {
+        return this.firstname + " " + this.lastname;
     }
-    static get activeRides() {
-        return Ride._activeRides;
+    walk() {
+        console.log("Walk");
     }
 }
-Ride._activeRides = 0;
-let ride1 = new Ride();
-let ride2 = new Ride();
-ride1.start();
-ride2.start();
-console.log(Ride.activeRides);
+class Teacher extends Person {
+    // Overriding the fullName from The parnt Class using (override) keyword
+    get fullName() {
+        return "Professor " + super.fullName; // Here We used super.(method) to get method from top(Parent) class
+    }
+}
+class Student extends Person {
+    constructor(studentId, firstName, lastName) {
+        super(firstName, lastName);
+        this.studentId = studentId;
+    }
+}
+let student = new Student(1, "Nima", "Prmi");
+let teacher = new Teacher("Mosh", "Hamedani");
+console.log("student", student.fullName);
+console.log("teacher", teacher.fullName);
 //# sourceMappingURL=index.js.map
