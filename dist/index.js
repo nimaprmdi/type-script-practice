@@ -1,41 +1,20 @@
 "use strict";
-class Person {
-    constructor(firstname, lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
-    get fullName() {
-        return this.firstname + " " + this.lastname;
-    }
-    walk() {
-        console.log("Walk");
+// This class will not available from calling outside
+// it is like a uncoocked meal!
+class Shape {
+    constructor(color) {
+        this.color = color;
     }
 }
-class Principle extends Person {
-    get fullName() {
-        return "Principle" + super.fullName;
+class Circle extends Shape {
+    constructor(radius, color) {
+        super(color);
+        this.radius = radius;
+    }
+    render() {
+        console.log("Rendering a circle");
     }
 }
-class Teacher extends Person {
-    // Overriding the fullName from The parnt Class using (override) keyword
-    get fullName() {
-        return "Professor " + super.fullName; // Here We used super.(method) to get method from top(Parent) class
-    }
-}
-class Student extends Person {
-    constructor(studentId, firstName, lastName) {
-        super(firstName, lastName);
-        this.studentId = studentId;
-    }
-}
-printNames([
-    new Student(1, "Nima", "Prmi"),
-    new Teacher("Mosh", "Hamedani"),
-    new Principle("Mary", "Weather"),
-]);
-// It is polymorphism
-function printNames(people) {
-    for (let person of people)
-        console.log(person.fullName);
-}
+let shape1 = new Circle(5, "red");
+shape1.render();
 //# sourceMappingURL=index.js.map
