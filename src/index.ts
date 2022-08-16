@@ -1,46 +1,9 @@
-abstract class CalendarClass {
-    constructor(public name: string) {}
-
-    abstract addEvent(): void;
-    protected removeEvent(): void {
-        console.log("Remove CalendarClass");
-    }
+// Will say that we should defie type when we are creating the class
+class keyValuePairs<K, V> {
+    constructor(public key: K, public value: V) {}
 }
 
-interface Calendar {
-    name: string;
-    addEvent(): void;
-    removeEvent(): void;
-}
-
-interface CloudCalendar extends Calendar {
-    sync(): void;
-}
-
-class GoogleCalendar extends CalendarClass {
-    constructor(public name: string) {
-        super(name);
-    }
-
-    sync(): void {
-        console.log("Hello");
-    }
-
-    addEvent(): void {
-        console.log(this.removeEvent());
-    }
-}
-
-class MicrosoftCalendaar implements Calendar {
-    constructor(public name: string) {}
-
-    addEvent(): void {
-        throw new Error("Method not implemented.");
-    }
-    removeEvent(): void {
-        throw new Error("Method not implemented.");
-    }
-}
-
-let calendar = new GoogleCalendar("google");
-let microCalendar = console.log(calendar.addEvent());
+// Type 1: Defining type using <TYPE, TYPE>
+let pair = new keyValuePairs<string, string>("1", "1");
+// Type 2: Atomatic difinition
+let pairs_2 = new keyValuePairs("2", "2");
