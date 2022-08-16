@@ -1,14 +1,25 @@
-class ArrayUtils {
-    static wrapInArray<S>(value: S) {
-        return [value];
-    }
+// Define interface with generic parameter
+interface Result<T> {
+    data: T | null;
+    error: string | null;
 }
 
-// A functional (outside of the class)
-function wrapInArray<T>(value: T) {
-    return [value];
+// Define that fetch need a type parameter for the result
+// And return result of the (T)
+function fetch<T>(url: string): Result<T> {
+    return { data: null, error: null };
 }
-// From The function
-const arr = wrapInArray("1");
-// In the class
-const arrUtil = ArrayUtils.wrapInArray(1);
+
+interface User {
+    username: string;
+}
+
+interface Product {
+    title: string;
+}
+
+const resultUser = fetch<User>("url");
+resultUser.data?.username; // We have access to the username from data (User interface)
+
+const resultProduct = fetch<Product>("url");
+resultProduct.data?.title; // We have access to the Product interface
