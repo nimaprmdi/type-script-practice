@@ -1,25 +1,33 @@
-// Define interface with generic parameter
-interface Result<T> {
-    data: T | null;
-    error: string | null;
+// Onlu accept number & string types as argument - extends from primitives
+function logNumberString<T extends number | string>(value: T): T {
+    return value;
+}
+// Only accept (object) with (name) key - Extends from object
+function logObjects<T extends { name: string }>(value: T): T {
+    return value;
 }
 
-// Define that fetch need a type parameter for the result
-// And return result of the (T)
-function fetch<T>(url: string): Result<T> {
-    return { data: null, error: null };
+interface Person {
+    name: string;
+}
+// Only accept (Person) interface as the type - extends from interface
+function logInterface<T extends Person>(value: T): T {
+    return value;
 }
 
-interface User {
-    username: string;
+// Only Accept Man or People classes as type - extends from Class
+class People {
+    constructor(public name: string) {}
+}
+class Man extends People {
+    constructor(public name: string) {
+        super(name);
+    }
+}
+function logClass<T extends Man>(value: T): T {
+    return value;
 }
 
-interface Product {
-    title: string;
-}
-
-const resultUser = fetch<User>("url");
-resultUser.data?.username; // We have access to the username from data (User interface)
-
-const resultProduct = fetch<Product>("url");
-resultProduct.data?.title; // We have access to the Product interface
+logNumberString(0);
+logObjects({ name: "Nima" });
+logClass(new Man("Name"));
