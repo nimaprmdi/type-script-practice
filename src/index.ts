@@ -1,20 +1,46 @@
-// This class will not available from calling outside
-// it is like a uncoocked meal!
-abstract class Shape {
-    constructor(public color: string) {}
+abstract class CalendarClass {
+    constructor(public name: string) {}
 
-    abstract render(): void; // abstract methods only can be in abstract classes
-}
-
-class Circle extends Shape {
-    constructor(public radius: number, color: string) {
-        super(color);
-    }
-
-    override render(): void {
-        console.log("Rendering a circle");
+    abstract addEvent(): void;
+    protected removeEvent(): void {
+        console.log("Remove CalendarClass");
     }
 }
 
-let shape1 = new Circle(5, "red");
-shape1.render();
+interface Calendar {
+    name: string;
+    addEvent(): void;
+    removeEvent(): void;
+}
+
+interface CloudCalendar extends Calendar {
+    sync(): void;
+}
+
+class GoogleCalendar extends CalendarClass {
+    constructor(public name: string) {
+        super(name);
+    }
+
+    sync(): void {
+        console.log("Hello");
+    }
+
+    addEvent(): void {
+        console.log(this.removeEvent());
+    }
+}
+
+class MicrosoftCalendaar implements Calendar {
+    constructor(public name: string) {}
+
+    addEvent(): void {
+        throw new Error("Method not implemented.");
+    }
+    removeEvent(): void {
+        throw new Error("Method not implemented.");
+    }
+}
+
+let calendar = new GoogleCalendar("google");
+let microCalendar = console.log(calendar.addEvent());
