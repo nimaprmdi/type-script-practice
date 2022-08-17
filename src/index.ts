@@ -1,20 +1,29 @@
-function Caplitalize(target: any, methodName: string, descriptor: PropertyDescriptor) {
-    const original = descriptor.get;
+function MinLength(length: number) {
+    return (target: any, propertyName: string) => {
+        let value: string;
 
-    descriptor.get = function () {
-        const result = original?.call(this);
-        return typeof result === "string" ? result.toUpperCase() : result;
+        const descriptor: PropertyDescriptor = {
+            get() {
+                return value;
+            },
+            set(newValue: string) {
+                if (newValue.length < length) throw new Error(`${propertyName} must be at least ${length}`);
+                value = newValue;
+            },
+        };
+
+        Object.defineProperty(target, propertyName, descriptor);
     };
 }
 
-class Person {
-    constructor(public firstname: string, public lastname: string) {}
+class User {
+    @MinLength(4)
+    password: string;
 
-    @Caplitalize
-    get fullName() {
-        return `${this.firstname} ${this.lastname}`;
+    constructor(pasword: string) {
+        this.password = pasword;
     }
 }
 
-let person = new Person("Nima", "Prmi");
-console.log(person.fullName);
+const user = new User("aaa"); // Will fail because it is 3
+const user2 = new User("aaaa"); // Will success because it is 4
