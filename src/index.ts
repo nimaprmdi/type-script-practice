@@ -1,33 +1,48 @@
-// Onlu accept number & string types as argument - extends from primitives
-function logNumberString<T extends number | string>(value: T): T {
-    return value;
-}
-// Only accept (object) with (name) key - Extends from object
-function logObjects<T extends { name: string }>(value: T): T {
-    return value;
-}
-
-interface Person {
+interface Product {
     name: string;
-}
-// Only accept (Person) interface as the type - extends from interface
-function logInterface<T extends Person>(value: T): T {
-    return value;
+    price: number;
 }
 
-// Only Accept Man or People classes as type - extends from Class
-class People {
-    constructor(public name: string) {}
-}
-class Man extends People {
-    constructor(public name: string) {
-        super(name);
+class Store<T> {
+    protected _objects: T[] = [];
+
+    add(obj: T): void {
+        this._objects.push(obj);
+    }
+
+    getObject() {
+        return this._objects;
     }
 }
-function logClass<T extends Man>(value: T): T {
-    return value;
+
+class CompressibleStore<T> extends Store<T> {
+    compress() {}
 }
 
-logNumberString(0);
-logObjects({ name: "Nima" });
-logClass(new Man("Name"));
+class SearchableStore<T extends { name: string }> extends Store<T> {
+    find(name: string): T | undefined {
+        return this._objects.find((obj) => obj.name === name);
+    }
+}
+
+class ProductStore extends Store<Product> {
+    filterByCategory(category: string, price: number): Product[] {
+        return [{ name: category, price: price }];
+    }
+}
+
+let compressibleStore = new CompressibleStore<Product>();
+let storeClass = new Store();
+let productStore = new ProductStore();
+let searchAble = new SearchableStore();
+
+// Access to child
+compressibleStore.compress();
+
+// Adding (a1) to the the (_objects)
+storeClass.add("a");
+console.log("objects => ", storeClass.getObject());
+
+//
+console.log("return given data => ", productStore.filterByCategory("a", 500));
+console.log(searchAble.find("a"));
