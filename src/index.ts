@@ -1,25 +1,20 @@
-// Created a decorator that rewrite the bottom class function
-function Log(target: any, methodName: string, descriptor: PropertyDescriptor) {
-    /**
-     * methodName is the name of function (say of Person)
-     * descriptor is the function taat acces to the value
-     *
-     */
-    const original = descriptor.value as Function;
-    descriptor.value = function (...args: any) {
-        // here we got the argument here (good morning)
-        console.log("Before");
-        original.call(this, ...args); // clling original function from the person class
-        console.log("After");
+function Caplitalize(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const original = descriptor.get;
+
+    descriptor.get = function () {
+        const result = original?.call(this);
+        return typeof result === "string" ? result.toUpperCase() : result;
     };
 }
 
 class Person {
-    @Log
-    say(message: string) {
-        console.log("Person Say " + message);
+    constructor(public firstname: string, public lastname: string) {}
+
+    @Caplitalize
+    get fullName() {
+        return `${this.firstname} ${this.lastname}`;
     }
 }
 
-const person = new Person();
-person.say("good morning");
+let person = new Person("Nima", "Prmi");
+console.log(person.fullName);
