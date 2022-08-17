@@ -5,22 +5,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-// function Component(value: number) { // We can define the type (static type) or (dynamic type)
-function Component(options) {
-    return (constructor) => {
-        console.log("Component Called");
-        constructor.prototype.options = options;
-        console.log(constructor.prototype.options);
-        constructor.prototype.userId = Date.now();
-        constructor.prototype.insertInDom = () => {
-            console.log("Inserted the component In Dom");
-        };
+// Created a decorator that rewrite the bottom class function
+function Log(target, methodName, descriptor) {
+    /**
+     * methodName is the name of function (say of Person)
+     * descriptor is a
+     *
+     */
+    const original = descriptor.value;
+    descriptor.value = function (...args) {
+        console.log("Before");
+        console.log(descriptor.value);
+        original.call(this, ...args);
+        console.log("After");
     };
 }
-// @Component(5) // static type difinition
-let ProfileComponent = class ProfileComponent {
-};
-ProfileComponent = __decorate([
-    Component({ selector: "#my-div" }) // Dynamic way
-], ProfileComponent);
+class Person {
+    say(message) {
+        console.log("Person Say " + message);
+    }
+}
+__decorate([
+    Log
+], Person.prototype, "say", null);
+const person = new Person();
+person.say("Haji");
 //# sourceMappingURL=index.js.map

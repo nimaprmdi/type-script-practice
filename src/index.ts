@@ -1,24 +1,25 @@
-type ComponentOptions = {
-    selector: string;
-};
-
-// function Component(value: number) { // We can define the type (static type) or (dynamic type)
-function Component(options: ComponentOptions) {
-    return (constructor: Function) => {
-        console.log("Component Called");
-
-        constructor.prototype.options = options;
-        console.log(constructor.prototype.options);
-
-        constructor.prototype.userId = Date.now();
-        constructor.prototype.insertInDom = () => {
-            console.log("Inserted the component In Dom");
-        };
+// Created a decorator that rewrite the bottom class function
+function Log(target: any, methodName: string, descriptor: PropertyDescriptor) {
+    /**
+     * methodName is the name of function (say of Person)
+     * descriptor is the function taat acces to the value
+     *
+     */
+    const original = descriptor.value as Function;
+    descriptor.value = function (...args: any) {
+        // here we got the argument here (good morning)
+        console.log("Before");
+        original.call(this, ...args); // clling original function from the person class
+        console.log("After");
     };
 }
 
-// @Component(5) // static type difinition
-@Component({ selector: "#my-div" }) // Dynamic way
-class ProfileComponent {
-    // We have every thing from prototype here
+class Person {
+    @Log
+    say(message: string) {
+        console.log("Person Say " + message);
+    }
 }
+
+const person = new Person();
+person.say("good morning");
