@@ -5,16 +5,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-function Component(constructor) {
-    console.log("Component decorator called");
-    constructor.prototype.userId = Date.now();
-    constructor.prototype.insertInDom = () => {
-        console.log("Inserting dom component in dom ");
+// function Component(value: number) { // We can define the type (static type) or (dynamic type)
+function Component(options) {
+    return (constructor) => {
+        console.log("Component Called");
+        constructor.prototype.options = options;
+        console.log(constructor.prototype.options);
+        constructor.prototype.userId = Date.now();
+        constructor.prototype.insertInDom = () => {
+            console.log("Inserted the component In Dom");
+        };
     };
 }
+// @Component(5) // static type difinition
 let ProfileComponent = class ProfileComponent {
 };
 ProfileComponent = __decorate([
-    Component
+    Component({ selector: "#my-div" }) // Dynamic way
 ], ProfileComponent);
 //# sourceMappingURL=index.js.map
