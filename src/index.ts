@@ -13,36 +13,14 @@ class Store<T> {
     getObject() {
         return this._objects;
     }
-}
 
-class CompressibleStore<T> extends Store<T> {
-    compress() {}
-}
-
-class SearchableStore<T extends { name: string }> extends Store<T> {
-    find(name: string): T | undefined {
-        return this._objects.find((obj) => obj.name === name);
+    // (keyof T) will say argument should be match with object keys
+    find(property: keyof T, value: unknown): T | undefined {
+        return this._objects.find((obj) => obj[property] === value);
     }
 }
 
-class ProductStore extends Store<Product> {
-    filterByCategory(category: string, price: number): Product[] {
-        return [{ name: category, price: price }];
-    }
-}
-
-let compressibleStore = new CompressibleStore<Product>();
-let storeClass = new Store();
-let productStore = new ProductStore();
-let searchAble = new SearchableStore();
-
-// Access to child
-compressibleStore.compress();
-
-// Adding (a1) to the the (_objects)
-storeClass.add("a");
-console.log("objects => ", storeClass.getObject());
-
-//
-console.log("return given data => ", productStore.filterByCategory("a", 500));
-console.log(searchAble.find("a"));
+let store = new Store<Product>();
+store.add({ name: "bmw", price: 20 });
+store.find("name", "bmw");
+// store.find("brand", 5); // will not work because key not exist
