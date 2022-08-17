@@ -3,24 +3,34 @@ interface Product {
     price: number;
 }
 
-class Store<T> {
-    protected _objects: T[] = [];
+// This will create anything in the product interface readonly
+type ReadOnlyProducts = {
+    readonly // (K) is the key => it is like a for loop (This just work for Product interface)
+    [K in keyof Product]: Product[K];
+};
 
-    add(obj: T): void {
-        this._objects.push(obj);
-    }
+let product: ReadOnlyProducts = {
+    name: "a",
+    price: 5,
+};
+// product.name = "5"; // here we can not change the value of the name will get an error
 
-    getObject() {
-        return this._objects;
-    }
+/******** Next level Readonly *********/
+type Optional<T> = {
+    // using (?) made it optional
+    [K in keyof T]?: T[K]; // made every thing here optional
+};
 
-    // (keyof T) will say argument should be match with object keys
-    find(property: keyof T, value: unknown): T | undefined {
-        return this._objects.find((obj) => obj[property] === value);
-    }
-}
+type Nullable<T> = {
+    [K in keyof T]: T[K] | null;
+};
 
-let store = new Store<Product>();
-store.add({ name: "bmw", price: 20 });
-store.find("name", "bmw");
-// store.find("brand", 5); // will not work because key not exist
+let optional: Optional<Product> = {
+    name: "name",
+    // price is optional here
+};
+
+let nullable: Nullable<Product> = {
+    name: null,
+    price: null,
+};
