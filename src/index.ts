@@ -1,19 +1,3 @@
-type WatchedParameters = {
-    methodName: string;
-    parameterIndex: number;
-};
+import { Circle, Square } from "./shapes";
 
-const watchedParameters: WatchedParameters[] = [];
-
-function Watch(target: any, methodName: string, parameterIndex: number) {
-    watchedParameters.push({
-        methodName,
-        parameterIndex,
-    });
-}
-
-class Vehicle {
-    move(car: string, @Watch speed: number) {}
-}
-
-console.log(watchedParameters);
+let circle = new Circle(5);
