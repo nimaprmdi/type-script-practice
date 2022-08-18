@@ -1,3 +1,3 @@
-import { Circle, Square } from "./shapes";
+import { calculateTax } from "./tax.js";
 
-let circle = new Circle(5);
+console.log(calculateTax(50_000));
